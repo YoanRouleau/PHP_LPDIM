@@ -1,0 +1,21 @@
+{
+  "name": "yoan/tp2-2",
+  "require": {
+    "symfony/http-foundation": "^5.2",
+    "doctrine/orm": "^2.8"
+  },
+  "require-dev": {
+    "symfony/var-dumper": "^5.2"
+  },
+  "authors": [
+    {
+      "name": "yoanrouleau",
+      "email": "yoan-rouleau@live.fr"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    }
+  }
+}
