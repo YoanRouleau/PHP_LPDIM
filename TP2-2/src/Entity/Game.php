@@ -25,4 +25,14 @@ class Game{
      */
     private $image;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Player", inversedBy="ownedGames")
+     */
+    private $ownedBy;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Score", mappedBy="game")
+     */
+    private $scores;
+
 }

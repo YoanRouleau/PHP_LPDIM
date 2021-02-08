@@ -25,4 +25,14 @@ class Player{
      */
     private $email;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Game", mappedBy="ownedBy")
+     */
+    private $ownedGames;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Score", mappedBy="player")
+     */
+    private $scores;
+
 }

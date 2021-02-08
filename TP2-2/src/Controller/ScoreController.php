@@ -4,6 +4,7 @@ namespace App\Controller;
 
 
 use App\FakeData;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -12,7 +13,7 @@ class ScoreController extends AbstractController
 {
 
 
-    public function index(Request $request): Response
+    public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $scores = FakeData::scores();
 

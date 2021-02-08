@@ -25,4 +25,14 @@ class Score{
      */
     private DateTime $created_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="scores")
+     */
+    private $player;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="scores")
+     */
+    private $game;
+
 }
