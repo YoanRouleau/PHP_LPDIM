@@ -54,4 +54,13 @@ class ScoreController extends AbstractController
         }
     }
 
+    public function delete(Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $repository = $entityManager->getRepository(Score::class);
+        $score = $repository->find($request->get('id'));
+        $entityManager->remove($score);
+        $entityManager->flush();
+        return $this->redirectTo("/score");
+    }
+
 }
