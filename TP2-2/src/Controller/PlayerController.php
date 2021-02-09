@@ -67,7 +67,7 @@ class PlayerController extends AbstractController
 
     public function delete($request, EntityManagerInterface $entityManager, $id): Response
     {
-        
+
         $repository = $entityManager->getRepository(Player::class);
         $player = $repository->find($id);
         $entityManager->remove($player);
