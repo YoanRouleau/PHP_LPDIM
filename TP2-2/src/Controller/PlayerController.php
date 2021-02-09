@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\FakeData;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\Player;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -16,7 +17,8 @@ class PlayerController extends AbstractController
         /**
          * @todo lister les joueurs
          */
-        $players = FakeData::players(25);
+        $repository = $entityManager->getRepository(Player::class);
+        $players = $repository->findAll();
         return $this->render("player/index", ["players" => $players]);
 
     }
@@ -42,9 +44,11 @@ class PlayerController extends AbstractController
     }
 
 
-    public function edit($id, Request $request): Response
+    public function edit($id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $player = FakeData::players(1)[0];
+
+        $repository = $entityManager->getRepository(Player::class);
+        $player  = $repository->find($id);
 
         if ($request->getMethod() == Request::METHOD_POST) {
             /**
