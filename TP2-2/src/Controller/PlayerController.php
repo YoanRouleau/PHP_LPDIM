@@ -14,7 +14,7 @@ class PlayerController extends AbstractController
 
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        
+
         $repository = $entityManager->getRepository(Player::class);
         $players = $repository->findAll();
         return $this->render("player/index", ["players" => $players]);
@@ -35,9 +35,10 @@ class PlayerController extends AbstractController
     }
 
 
-    public function show($id): Response
+    public function show(EntityManagerInterface $entityManager, $id): Response
     {
-        $player = FakeData::players(1)[0];
+        $repository = $entityManager->getRepository(Player::class);
+        $player = $repository->find($id);
         return $this->render("player/show", ["player" => $player, "availableGames" => FakeData::games()]);
     }
 
