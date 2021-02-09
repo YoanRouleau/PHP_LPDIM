@@ -14,9 +14,7 @@ class PlayerController extends AbstractController
 
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        /**
-         * @todo lister les joueurs
-         */
+        
         $repository = $entityManager->getRepository(Player::class);
         $players = $repository->findAll();
         return $this->render("player/index", ["players" => $players]);
@@ -51,9 +49,11 @@ class PlayerController extends AbstractController
         $player  = $repository->find($id);
 
         if ($request->getMethod() == Request::METHOD_POST) {
-            /**
-             * @todo enregistrer l'objet
-             */
+
+            $player->setUsername($request->request->get('username'));
+            $player->setEmail($request->request->get('email'));
+            $entityManager->persist($player);
+            $entityManager->flush();
             return $this->redirectTo("/player");
         }
         return $this->render("player/form", ["player" => $player]);
