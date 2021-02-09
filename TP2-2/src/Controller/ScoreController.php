@@ -3,6 +3,9 @@
 namespace App\Controller;
 
 
+use App\Entity\Game;
+use App\Entity\Player;
+use App\Entity\Score;
 use App\FakeData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,21 +18,38 @@ class ScoreController extends AbstractController
 
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $scores = FakeData::scores();
-
-        $games = FakeData::games();
-        $players = FakeData::players();
+        $scores = $entityManager->getRepository(Score::class)->findAll();
+        $games = $entityManager->getRepository(Game::class)->findAll();
+        $players = $entityManager->getRepository(Player::class)->findAll();
 
         return $this->render("score/index", ["scores" => $scores,
             "games" => $games, "players" => $players]);
     }
 
-    public function add(Request $request): Response
+    public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
-        if ($request->getMethod() == Request::METHOD_POST) {
+        $score = new Score();
+
+        if ($request->getMethod() == Request::METHOD_GET) {
             /**
              * @todo enregistrer l'objet
              */
+            $player = $entityManager
+                        ->getRepository(Player::class)
+                        ->find($request->get('player'));
+
+
+            $game = $entityManager
+                        ->getRepository(Game::class)
+                        ->find($request->get('game'));
+
+            $score->setPlayer($player);
+            $score->setGame($game);
+
+            $score->setScore($request->get('score'));
+            $score->setCreatedAt(new \DateTime());
+            $entityManager->persist($score);
+            $entityManager->flush();
             return $this->redirectTo("/score");
         }
     }
