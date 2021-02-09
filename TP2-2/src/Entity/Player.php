@@ -14,6 +14,7 @@ class Player{
     /**
      * @ORM\Id()
      * @ORM\Column(type="integer", unique=true, nullable=false)
+     * @ORM\GeneratedValue()
      */
     private $id;
 
@@ -37,7 +38,9 @@ class Player{
      */
     private $scores;
 
+
     //GETTERS/SETTERS -------------------------------------------------------------
+
     /**
      * @return mixed
      */

@@ -21,14 +21,18 @@ class PlayerController extends AbstractController
 
     }
 
-    public function add(Request $request): Response
+    public function add($id, Request $request, EntityManagerInterface $entityManager): Response
     {
-        $player = FakeData::players(1)[0];
+
+        $player = new Player();
 
         if ($request->getMethod() == Request::METHOD_POST) {
-            /**
-             * @todo enregistrer l'objet
-             */
+            $player->setEmail($request->get('email'));
+            $player->setUsername($request->get('username'));
+
+            $entityManager->persist($player);
+            $entityManager->flush();
+
             return $this->redirectTo("/player");
         }
         return $this->render("player/form", ["player" => $player]);
@@ -50,7 +54,6 @@ class PlayerController extends AbstractController
         $player  = $repository->find($id);
 
         if ($request->getMethod() == Request::METHOD_POST) {
-
             $player->setUsername($request->request->get('username'));
             $player->setEmail($request->request->get('email'));
             $entityManager->persist($player);
