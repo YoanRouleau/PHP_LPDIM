@@ -65,11 +65,14 @@ class PlayerController extends AbstractController
 
     }
 
-    public function delete($id): Response
+    public function delete($request, EntityManagerInterface $entityManager, $id): Response
     {
-        /**
-         * @todo supprimer l'objet
-         */
+        
+        $repository = $entityManager->getRepository(Player::class);
+        $player = $repository->find($id);
+        $entityManager->remove($player);
+        $entityManager->flush();
+
         return $this->redirectTo("/player");
 
     }
