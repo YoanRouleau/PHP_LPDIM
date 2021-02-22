@@ -17,7 +17,7 @@ class PlayerController extends AbstractController
 
         $repository = $entityManager->getRepository(Player::class);
         $players = $repository->findAll();
-        return $this->render("player/index", ["players" => $players]);
+        return $this->render("player/index.html.twig", ["players" => $players]);
 
     }
 
@@ -35,7 +35,7 @@ class PlayerController extends AbstractController
 
             return $this->redirectTo("/player");
         }
-        return $this->render("player/form", ["player" => $player]);
+        return $this->render("player/form.html.twig", ["player" => $player]);
     }
 
 
@@ -43,7 +43,7 @@ class PlayerController extends AbstractController
     {
         $repository = $entityManager->getRepository(Player::class);
         $player = $repository->find($id);
-        return $this->render("player/show", ["player" => $player, "availableGames" => FakeData::games()]);
+        return $this->render("player/show.html.twig", ["player" => $player, "availableGames" => FakeData::games()]);
     }
 
 
@@ -60,7 +60,7 @@ class PlayerController extends AbstractController
             $entityManager->flush();
             return $this->redirectTo("/player");
         }
-        return $this->render("player/form", ["player" => $player]);
+        return $this->render("player/form.html.twig", ["player" => $player]);
 
 
     }
