@@ -19,7 +19,6 @@ use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\Router;
 use Symfony\Component\Routing\RouterInterface;
 
-
 class Kernel
 {
     private ?Request $request = null;

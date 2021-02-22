@@ -35,7 +35,7 @@ class GameController extends AbstractController
 
             $entityManager->persist($game);
             $entityManager->flush();
-            return $this->redirectTo("/game");
+            return $this->redirectToRoute("game_page");
         }
         return $this->render("game/form.html.twig", ["game" => $game]);
     }
@@ -59,7 +59,7 @@ class GameController extends AbstractController
             $game->setImage($request->request->get('image'));
             $entityManager->persist($game);
             $entityManager->flush();
-            return $this->redirectTo("/game");
+            return $this->redirectToRoute("game_page");
         }
         return $this->render("game/form.html.twig", ["game" => $game]);
 
@@ -72,7 +72,7 @@ class GameController extends AbstractController
         $game = $repository->find($id);
         $entityManager->remove($game);
         $entityManager->flush();
-        return $this->redirectTo("/game");
+        return $this->redirectToRoute("game_page");
     }
 
 }

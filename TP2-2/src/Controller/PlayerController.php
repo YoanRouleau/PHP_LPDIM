@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlayerController extends AbstractController
 {
 
-    #[Route("/player",name:"playerpage")]
+    #[Route("/player",name:"player_page")]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -22,9 +22,9 @@ class PlayerController extends AbstractController
 
     }
 
+    #[Route("/player/add",name:"player_add")]
     public function add($id, Request $request, EntityManagerInterface $entityManager): Response
     {
-
         $player = new Player();
 
         if ($request->getMethod() == Request::METHOD_POST) {
@@ -39,7 +39,7 @@ class PlayerController extends AbstractController
         return $this->render("player/form.html.twig", ["player" => $player]);
     }
 
-
+    #[Route("/player/show/{id}",name:"player_show")]
     public function show(EntityManagerInterface $entityManager, $id): Response
     {
         $repository = $entityManager->getRepository(Player::class);
@@ -47,7 +47,7 @@ class PlayerController extends AbstractController
         return $this->render("player/show.html.twig", ["player" => $player, "availableGames" => FakeData::games()]);
     }
 
-
+    #[Route("/player/edit/{id}",name:"player_edit")]
     public function edit($id, Request $request, EntityManagerInterface $entityManager): Response
     {
 
@@ -66,6 +66,7 @@ class PlayerController extends AbstractController
 
     }
 
+    #[Route("/player/delete/{id}",name:"player_delete")]
     public function delete($request, EntityManagerInterface $entityManager, $id): Response
     {
 

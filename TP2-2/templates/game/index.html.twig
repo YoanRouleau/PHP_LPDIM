@@ -1,7 +1,7 @@
 {% extends "layout.html.twig" %}
 {% block body %}
 <h1 class="text-5xl">Games </h1>
-<a  href="/game/add" class="mb-10 px-4 py-2 inline-flex hover:bg-pink-500 bg-pink-600 text-white rounded-full justify-center items-center"><i class="fas fa-plus"></i>
+<a  href="{{ path("game_add") }}" class="mb-10 px-4 py-2 inline-flex hover:bg-pink-500 bg-pink-600 text-white rounded-full justify-center items-center"><i class="fas fa-plus"></i>
 </a>
 {% for game in games %}
 
