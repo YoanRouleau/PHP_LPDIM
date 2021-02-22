@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ScoreController extends AbstractController
 {
 
-    #[Route("/score",name:"scorepage")]
+    #[Route("/score",name:"score_page")]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $scores = $entityManager->getRepository(Score::class)->findAll();
@@ -27,18 +27,15 @@ class ScoreController extends AbstractController
             "games" => $games, "players" => $players]);
     }
 
+    #[Route("/score/add",name:"score_add")]
     public function add(Request $request, EntityManagerInterface $entityManager): Response
     {
         $score = new Score();
 
         if ($request->getMethod() == Request::METHOD_GET) {
-            /**
-             * @todo enregistrer l'objet
-             */
             $player = $entityManager
                         ->getRepository(Player::class)
                         ->find($request->get('player'));
-
 
             $game = $entityManager
                         ->getRepository(Game::class)
@@ -54,6 +51,7 @@ class ScoreController extends AbstractController
             return $this->redirectTo("/score");
         }
     }
+
 
     public function delete(Request $request, EntityManagerInterface $entityManager): Response
     {
