@@ -7,11 +7,12 @@ use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\Player;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 class PlayerController extends AbstractController
 {
 
-
+    #[Route("/player",name:"playerpage")]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
 

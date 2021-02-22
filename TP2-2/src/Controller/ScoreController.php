@@ -10,12 +10,13 @@ use App\FakeData;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 
 class ScoreController extends AbstractController
 {
 
-
+    #[Route("/score",name:"scorepage")]
     public function index(Request $request, EntityManagerInterface $entityManager): Response
     {
         $scores = $entityManager->getRepository(Score::class)->findAll();
